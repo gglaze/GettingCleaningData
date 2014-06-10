@@ -1,22 +1,26 @@
-setwd("~/Dropbox/Documents/GettingCleaningData/Project")
+# setwd("your working directory")
+# include all data files in working directory:
+# activity_labels.txt; features.txt; X_train.txt; y_train.txt
+# subject_train.txt; X_test.txt; y_test.txt; subject_test.txt
+#
 # id 1-6 of volunteer activities
-activity_labels <- read.table("./data/activity_labels.txt", quote="\"")
+activity_labels <- read.table("activity_labels.txt", quote="\"")
 # descriptive labels for 561 variables
-features <- read.table("./data/features.txt", quote="\"")
+features <- read.table("features.txt", quote="\"")
 #
 # training set 7352 obs. of 561 variables
-X_train <- read.table("./data/train/X_train.txt", quote="\"")
+X_train <- read.table("X_train.txt", quote="\"")
 # training set 7352 obs. of 1 variable (dependent variable = activity)
-y_train <- read.table("./data/train/y_train.txt", quote="\"")
+y_train <- read.table("y_train.txt", quote="\"")
 # id 1-30 of volunteer subjects
-subject_train <- read.table("./data/train/subject_train.txt", quote="\"")
+subject_train <- read.table("subject_train.txt", quote="\"")
 #
 # test set 2497 obs. of 561 variables
-X_test <- read.table("./data/test/X_test.txt", quote="\"")
+X_test <- read.table("X_test.txt", quote="\"")
 # test set 2497 obs. of 1 variable (dependent variable = activity)
-y_test <- read.table("./data/test/y_test.txt", quote="\"")
+y_test <- read.table("y_test.txt", quote="\"")
 # id 1-30 of volunteer subjects
-subject_test <- read.table("./data/test/subject_test.txt", quote="\"")
+subject_test <- read.table("subject_test.txt", quote="\"")
 #
 # Rubric 1: Merges the training and the test sets to create one data set.
 dF <- rbind(X_train, X_test)
@@ -81,4 +85,4 @@ names(subjectMeans) <- dfNames
 # and 36 observations (1 for each group: 6 activities and 30 subjects)
 tidySet <- rbind(activityMeans, subjectMeans)
 # save file in csv format
-write.csv(tidySet, file="tidySet.csv")
+# write.csv(tidySet, file="tidySet.csv")
