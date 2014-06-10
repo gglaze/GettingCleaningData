@@ -33,7 +33,12 @@ dfActivities <- activity_labels[dfActivities[[1]],2]
 colnames(dF) <- features[[2]]
 #
 # Rubric 2: Extracts only the measurements on the mean and standard deviation for each measurement.
-dF <- dF[,1:6]
+f <- as.character(features[[2]])
+x <- grep('mean()',f,fixed=TRUE) # identify "measurements on the mean"
+y <- grep('std()', f, fixed=TRUE) # indentify "measurements on the ... standard deviation"
+xy <- c(x,y) # combine and sort the variables to be extracted
+xy <- sort(xy)
+dF <- dF[,xy] # extract subset of desired variables
 dfNames <- names(dF) # retain names of remaining variables
 #
 # Rubric 5: Creates a second, independent tidy data set with the average of each variable
@@ -44,7 +49,7 @@ dfActivityGroups <- split(dF, dfActivities)
 activityMeans = data.frame(NULL) # initialize data frame for activity means
 # calculate means for each variable for each activity group
 # then, build data frame with 1 column of variable means for each activity group
-# new data frame has 6 rows and 6 columns
+# new data frame has 6 rows and 66 columns
 for(i in activity_labels[[2]]){
   x = sapply(dfActivityGroups[[i]], mean)
   activityMeans <- rbind(activityMeans, x)
@@ -57,9 +62,9 @@ names(activityMeans) <- dfNames
 # split observations into 30 subject groups
 dfSubjectGroups <- split(dF, dfSubjects)
 subjectMeans = data.frame(NULL) # initialize data frame for subject means
-# calculate means for each variable for each subject group
-# then, build data frame with 1 columnm of variable means for each subject group
-# new data frame has 561 rows and 30 columns
+# calculate means for each variable for each subject group, then
+# build data frame with 1 row of variable means for each of 30 subject groups
+# new data frame has 30 rows and 66 columns
 for(i in 1:30){
   x = sapply(dfSubjectGroups[[i]], mean)
   subjectMeans <- rbind(subjectMeans, x)
@@ -72,6 +77,8 @@ rownames(subjectMeans) <- subjectNames
 names(subjectMeans) <- dfNames
 #
 # combine activity means and subject means data frames to form
-# final unified tidy data set with 6 variables
+# final unified tidy data set with 66 variables
 # and 36 observations (1 for each group: 6 activities and 30 subjects)
 tidySet <- rbind(activityMeans, subjectMeans)
+# save file in csv format
+write.csv(tidySet, file="tidySet.csv")
