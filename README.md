@@ -6,11 +6,12 @@ The script:
 - create activity vector combining training and test set activity values.
 - create subject(volunteer) vector combining training and test set subject values.
 
-2) Replaces the coded values in the activity vector with descriptive names from file 'activity_labels.txt'.
+2) Extracts the 66 variables containing estimates of mean and standard deviation from the merged data set. Names of target variables include "mean()" or "std()".
 
-3) Adds descriptive variable names from file 'features.txt' to the merged data set.
+3) Replaces the coded values in the activity vector with descriptive names from file 'activity_labels.txt'.
 
-4) Extracts the 66 variables containing estimates of mean and standard deviation from the merged data set. Names of target variables include "mean()" or "std()".
+4) Adds descriptive variable names derived from file 'features.txt' to the merged data set. Preprocessing removes characters illegal in R and improves readability.
+
 
 5) Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
 - split data set into six activity groups

@@ -30,20 +30,29 @@ colnames(dfActivities) <- "Activity"
 # Combine training and test subject(volunteer) IDs
 dfSubjects <- rbind(subject_train, subject_test)
 #
+# Rubric 2: Extracts only the measurements on the mean and standard deviation for each measurement.
+# identify variables representing means or standard deviations of raw data.
+newNames <- as.character(features[[2]])
+ptrMeans <- grep('mean()',newNames,fixed=TRUE) # identify "measurements on the mean"
+ptrStdDev <- grep('std()', newNames, fixed=TRUE) # indentify "measurements on the ... standard deviation"
+ptrMeanSD <- c(ptrMeans, ptrStdDev) # combine and sort the variables to be extracted
+ptrMeanSD <- sort(ptrMeanSD)
+dF <- dF[,ptrMeanSD] # extract subset of desired variables
+newNames <- newNames[ptrMeanSD] # extract given names of desired variables
+#
 # Rubric 3: Uses descriptive activity names to name the activities in the data set
 dfActivities <- activity_labels[dfActivities[[1]],2]
 #
 # Rubric 4: Appropriately labels the data set with descriptive variable names.
-colnames(dF) <- features[[2]]
-#
-# Rubric 2: Extracts only the measurements on the mean and standard deviation for each measurement.
-f <- as.character(features[[2]])
-x <- grep('mean()',f,fixed=TRUE) # identify "measurements on the mean"
-y <- grep('std()', f, fixed=TRUE) # indentify "measurements on the ... standard deviation"
-xy <- c(x,y) # combine and sort the variables to be extracted
-xy <- sort(xy)
-dF <- dF[,xy] # extract subset of desired variables
-dfNames <- names(dF) # retain names of remaining variables
+# edit names to make them R-legal and more descriptive
+newNames <- make.names(newNames) # purge characters not allowed in R
+newNames <- sub(".mean..","Mean", newNames)
+newNames <- sub(".std..","StdDev", newNames)
+newNames <- sub("tBody","timeDomainBody",newNames)
+newNames <- sub("fBody","freqDomainBody",newNames)
+newNames <- sub("tGravity","timeDomainGravity",newNames)
+newNames <- sub("BodyGyro","AngVel", newNames)
+names(dF) <- newNames # apply descriptive variable names to data
 #
 # Rubric 5: Creates a second, independent tidy data set with the average of each variable
 #           for each activity and each subject. 
@@ -61,7 +70,7 @@ for(i in activity_labels[[2]]){
 # name rows with descriptive activity names
 rownames(activityMeans) <- activity_labels[[2]]
 # add descriptive variable (column) names
-names(activityMeans) <- dfNames
+names(activityMeans) <- newNames
 #
 # split observations into 30 subject groups
 dfSubjectGroups <- split(dF, dfSubjects)
@@ -78,7 +87,7 @@ subjectNames <- paste("subject", 1:30)
 # name rows with descriptive subject names
 rownames(subjectMeans) <- subjectNames
 # add descriptive variable (column) names
-names(subjectMeans) <- dfNames
+names(subjectMeans) <- newNames
 #
 # combine activity means and subject means data frames to form
 # final unified tidy data set with 66 variables
