@@ -93,5 +93,5 @@ names(subjectMeans) <- newNames
 # final unified tidy data set with 66 variables
 # and 36 observations (1 for each group: 6 activities and 30 subjects)
 tidySet <- rbind(activityMeans, subjectMeans)
-# save file in csv format
-# write.csv(tidySet, file="tidySet.csv")
+# Read file into data frame using command, 'tidySet <- read.table("tidySet.txt")'
+write.table(tidySet, file="tidySet.txt") # save the file
