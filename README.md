@@ -22,3 +22,5 @@ The script:
   frame contains 30 rows (one for each subject) and the same 66 variables.
 - combine the activities and subject data frames to form a single tidy data set
   with six variables and 36 rows of means.
+
+6) Saves result 'tidySet.txt' using command 'write.table.' User can read file into a data frame using command 'tidySet <- read.table("tidySet.txt").
