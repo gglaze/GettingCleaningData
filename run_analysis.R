@@ -34,7 +34,9 @@ dfSubjects <- rbind(subject_train, subject_test)
 # identify variables representing means or standard deviations of raw data.
 newNames <- as.character(features[[2]])
 ptrMeans <- grep('mean()',newNames,fixed=TRUE) # identify "measurements on the mean"
-ptrStdDev <- grep('std()', newNames, fixed=TRUE) # indentify "measurements on the ... standard deviation"
+ptrStdDev <- grep('std()', newNames, fixed=TRUE) # identify "measurements on the ... standard deviation"
+# ptrMeanFreq <- grep('meanFreq', newNames, fixed=TRUE) # identify mean frequency measurements
+# ptrGravityMean <- grep("gravityMean", newNames, fixed=TRUE) # identify angle measurements
 ptrMeanSD <- c(ptrMeans, ptrStdDev) # combine and sort the variables to be extracted
 ptrMeanSD <- sort(ptrMeanSD)
 dF <- dF[,ptrMeanSD] # extract subset of desired variables
@@ -46,8 +48,9 @@ dfActivities <- activity_labels[dfActivities[[1]],2]
 # Rubric 4: Appropriately labels the data set with descriptive variable names.
 # edit names to make them R-legal and more descriptive
 newNames <- make.names(newNames) # purge characters not allowed in R
-newNames <- sub(".mean..","Mean", newNames)
-newNames <- sub(".std..","StdDev", newNames)
+newNames <- gsub("\\.","", newNames) # purge periods
+newNames <- sub("mean","Mean", newNames)
+newNames <- sub("std","StdDev", newNames)
 newNames <- sub("tBody","timeDomainBody",newNames)
 newNames <- sub("fBody","freqDomainBody",newNames)
 newNames <- sub("tGravity","timeDomainGravity",newNames)
@@ -93,5 +96,5 @@ names(subjectMeans) <- newNames
 # final unified tidy data set with 66 variables
 # and 36 observations (1 for each group: 6 activities and 30 subjects)
 tidySet <- rbind(activityMeans, subjectMeans)
-# Read file into data frame using command, 'tidySet <- read.table("tidySet.txt")'
-write.table(tidySet, file="tidySet.txt") # save the file
+# save file in csv format
+write.table(tidySet, file="tidySet.txt")
