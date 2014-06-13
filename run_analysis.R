@@ -41,6 +41,7 @@ ptrMeanSD <- c(ptrMeans, ptrStdDev) # combine and sort the variables to be extra
 ptrMeanSD <- sort(ptrMeanSD)
 dF <- dF[,ptrMeanSD] # extract subset of desired variables
 newNames <- newNames[ptrMeanSD] # extract given names of desired variables
+oldNames <- newNames
 #
 # Rubric 3: Uses descriptive activity names to name the activities in the data set
 dfActivities <- activity_labels[dfActivities[[1]],2]
@@ -71,7 +72,10 @@ for(i in activity_labels[[2]]){
   activityMeans <- rbind(activityMeans, x)
 }
 # name rows with descriptive activity names
-rownames(activityMeans) <- activity_labels[[2]]
+activityNames <- tolower(activity_labels[[2]])
+activityNames <- sub('_u','U', activityNames) # remove '_' and change following letter to upper case
+activityNames <- sub('_d','D', activityNames) # remove '_' and change following letter to upper case
+rownames(activityMeans) <- activityNames
 # add descriptive variable (column) names
 names(activityMeans) <- newNames
 #
@@ -86,7 +90,7 @@ for(i in 1:30){
   subjectMeans <- rbind(subjectMeans, x)
 }
 # create descriptive subject names
-subjectNames <- paste("subject", 1:30)
+subjectNames <- paste("subject", 1:30, sep = "")
 # name rows with descriptive subject names
 rownames(subjectMeans) <- subjectNames
 # add descriptive variable (column) names

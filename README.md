@@ -8,7 +8,7 @@ The script:
 
 2) Extracts the 66 variables containing estimates of mean and standard deviation from the merged data set. Names of target variables include "mean()" or "std()".
 
-3) Replaces the coded values in the activity vector with descriptive names from file 'activity_labels.txt'.
+3) Replaces the coded values in the activity vector with descriptive names derived from file 'activity_labels.txt'.
 
 4) Adds descriptive variable names derived from file 'features.txt' to the merged data set. Preprocessing removes characters illegal in R and improves readability.
 

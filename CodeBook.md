@@ -38,7 +38,7 @@ and angular velocity. All measurements have been normalized and bounded within [
 
 The authors provide, but this assignment does not utilize, the original physical data. Units for those data are standard gravity units 'g' for acceleration and radian/second for angular velocity.
 
-Thirty-three names in 'features.txt' incorporate the term 'mean().' All have counterparts incorporating the term 'std().' This assignment utilizes only those mean/standard deviation variable pairs.
+This assignment extracts sixty-six variables from the source data. Half measure means and incorporate the term 'mean().' The remaining half measure corresponding standard deviations and incorporate the term 'std().'
 
 The assignment excludes variables with names including 'meanFreq' and 'gravityMean.' Those variables have no standard deviation counterparts.
 
@@ -46,55 +46,88 @@ The variable names provided in 'features.txt' required cleaning before incorpora
 
 The improved variable names retain the ambiguous terms 'Jerk' and 'Mag.' These terms likely refer to the separation of sensor "gravitational and body motion components" quoted above.
 
-The authors' detailed variable list follows:
+The list of original and revised variable names follows:
 
-These signals were used to estimate variables of the feature vector for each pattern:
- '-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
+Original Names  | Revised Names
+------------- | -------------
+tBodyAcc-mean()-X  |  timeDomainBodyAccMeanX
+tBodyAcc-mean()-Y  |  timeDomainBodyAccMeanY
+tBodyAcc-mean()-Z  |  timeDomainBodyAccMeanZ
+tBodyAcc-std()-X  |  timeDomainBodyAccStdDevX
+tBodyAcc-std()-Y  |  timeDomainBodyAccStdDevY
+tBodyAcc-std()-Z  |  timeDomainBodyAccStdDevZ
+tGravityAcc-mean()-X  |  timeDomainGravityAccMeanX
+tGravityAcc-mean()-Y  |  timeDomainGravityAccMeanY
+tGravityAcc-mean()-Z  |  timeDomainGravityAccMeanZ
+tGravityAcc-std()-X  |  timeDomainGravityAccStdDevX
+tGravityAcc-std()-Y  |  timeDomainGravityAccStdDevY
+tGravityAcc-std()-Z  |  timeDomainGravityAccStdDevZ
+tBodyAccJerk-mean()-X  |  timeDomainBodyAccJerkMeanX
+tBodyAccJerk-mean()-Y  |  timeDomainBodyAccJerkMeanY
+tBodyAccJerk-mean()-Z  |  timeDomainBodyAccJerkMeanZ
+tBodyAccJerk-std()-X  |  timeDomainBodyAccJerkStdDevX
+tBodyAccJerk-std()-Y  |  timeDomainBodyAccJerkStdDevY
+tBodyAccJerk-std()-Z  |  timeDomainBodyAccJerkStdDevZ
+tBodyGyro-mean()-X  |  timeDomainAngVelMeanX
+tBodyGyro-mean()-Y  |  timeDomainAngVelMeanY
+tBodyGyro-mean()-Z  |  timeDomainAngVelMeanZ
+tBodyGyro-std()-X  |  timeDomainAngVelStdDevX
+tBodyGyro-std()-Y  |  timeDomainAngVelStdDevY
+tBodyGyro-std()-Z  |  timeDomainAngVelStdDevZ
+tBodyGyroJerk-mean()-X  |  timeDomainAngVelJerkMeanX
+tBodyGyroJerk-mean()-Y  |  timeDomainAngVelJerkMeanY
+tBodyGyroJerk-mean()-Z  |  timeDomainAngVelJerkMeanZ
+tBodyGyroJerk-std()-X  |  timeDomainAngVelJerkStdDevX
+tBodyGyroJerk-std()-Y  |  timeDomainAngVelJerkStdDevY
+tBodyGyroJerk-std()-Z  |  timeDomainAngVelJerkStdDevZ
+tBodyAccMag-mean()  |  timeDomainBodyAccMagMean
+tBodyAccMag-std()  |  timeDomainBodyAccMagStdDev
+tGravityAccMag-mean()  |  timeDomainGravityAccMagMean
+tGravityAccMag-std()  |  timeDomainGravityAccMagStdDev
+tBodyAccJerkMag-mean()  |  timeDomainBodyAccJerkMagMean
+tBodyAccJerkMag-std()  |  timeDomainBodyAccJerkMagStdDev
+tBodyGyroMag-mean()  |  timeDomainAngVelMagMean
+tBodyGyroMag-std()  |  timeDomainAngVelMagStdDev
+tBodyGyroJerkMag-mean()  |  timeDomainAngVelJerkMagMean
+tBodyGyroJerkMag-std()  |  timeDomainAngVelJerkMagStdDev
+fBodyAcc-mean()-X  |  freqDomainBodyAccMeanX
+fBodyAcc-mean()-Y  |  freqDomainBodyAccMeanY
+fBodyAcc-mean()-Z  |  freqDomainBodyAccMeanZ
+fBodyAcc-std()-X  |  freqDomainBodyAccStdDevX
+fBodyAcc-std()-Y  |  freqDomainBodyAccStdDevY
+fBodyAcc-std()-Z  |  freqDomainBodyAccStdDevZ
+fBodyAccJerk-mean()-X  |  freqDomainBodyAccJerkMeanX
+fBodyAccJerk-mean()-Y  |  freqDomainBodyAccJerkMeanY
+fBodyAccJerk-mean()-Z  |  freqDomainBodyAccJerkMeanZ
+fBodyAccJerk-std()-X  |  freqDomainBodyAccJerkStdDevX
+fBodyAccJerk-std()-Y  |  freqDomainBodyAccJerkStdDevY
+fBodyAccJerk-std()-Z  |  freqDomainBodyAccJerkStdDevZ
+fBodyGyro-mean()-X  |  freqDomainAngVelMeanX
+fBodyGyro-mean()-Y  |  freqDomainAngVelMeanY
+fBodyGyro-mean()-Z  |  freqDomainAngVelMeanZ
+fBodyGyro-std()-X  |  freqDomainAngVelStdDevX
+fBodyGyro-std()-Y  |  freqDomainAngVelStdDevY
+fBodyGyro-std()-Z  |  freqDomainAngVelStdDevZ
+fBodyAccMag-mean()  |  freqDomainBodyAccMagMean
+fBodyAccMag-std()  |  freqDomainBodyAccMagStdDev
+fBodyBodyAccJerkMag-mean()  |  freqDomainBodyBodyAccJerkMagMean
+fBodyBodyAccJerkMag-std()  |  freqDomainBodyBodyAccJerkMagStdDev
+fBodyBodyGyroMag-mean()  |  freqDomainBodyAngVelMagMean
+fBodyBodyGyroMag-std()  |  freqDomainBodyAngVelMagStdDev
+fBodyBodyGyroJerkMag-mean()  |  freqDomainBodyAngVelJerkMagMean
+fBodyBodyGyroJerkMag-std()  |  freqDomainBodyAngVelJerkMagStdDev
 
- - tBodyAcc-XYZ
- - tGravityAcc-XYZ
- - tBodyAccJerk-XYZ
- - tBodyGyro-XYZ
- - tBodyGyroJerk-XYZ
- - tBodyAccMag
- - tGravityAccMag
- - tBodyAccJerkMag
- - tBodyGyroMag
- - tBodyGyroJerkMag
- - fBodyAcc-XYZ
- - fBodyAccJerk-XYZ
- - fBodyGyro-XYZ
- - fBodyAccMag
- - fBodyAccJerkMag
- - fBodyGyroMag
- - fBodyGyroJerkMag
+This assignment derives mean values for the extracted variables by activity and volunteer subject. Six activities plus thirty volunteer subjects yield thirty-six rows of means for the sixty-six variables described above.
 
-The set of variables that were estimated from these signals are:
+'activity_labels.txt' provides the six activity row labels. The assignment script modifies those names as shown below:
 
- - mean(): Mean value
- - std(): Standard deviation
- - mad(): Median absolute deviation
- - max(): Largest value in array
- - min(): Smallest value in array
- - sma(): Signal magnitude area
- - energy(): Energy measure. Sum of the squares divided by the number of values.
- - iqr(): Interquartile range
- - entropy(): Signal entropy
- - arCoeff(): Autorregresion coefficients with Burg order equal to 4
- - correlation(): correlation coefficient between two signals
- - maxInds(): index of the frequency component with largest magnitude
- - meanFreq(): Weighted average of the frequency components to obtain a mean
- - frequency
- - skewness(): skewness of the frequency domain signal
- - kurtosis(): kurtosis of the frequency domain signal
- - bandsEnergy(): Energy of a frequency interval within the 64 bins of the FFT of each window.
- - angle(): Angle between to vectors.
+Original Names  | Revised Names
+------------- | -------------
+WALKING|walking
+WALKING_UPSTAIRS|walkingUpstairs
+WALKING_DOWNSTAIRS|walkingDownstairs
+SITTING|sitting
+STANDING|standing
+LAYING|laying
 
-Additional vectors obtained by averaging the signals in a signal window sample.
- These are used on the angle() variable:
-
- - gravityMean
- - tBodyAccMean
- - tBodyAccJerkMean
- - tBodyGyroMean
- - tBodyGyroJerkMean
+The script creates volunteer subject names by appending numeral 1 to 30 to the term 'subject.'
